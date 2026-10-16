@@ -1,8 +1,8 @@
-// Конфигурация Supabase (замените на ваши данные из панели Supabase -> Project Settings -> API)
-const SUPABASE_URL = 'ВАШ_SUPABASE_URL';
-const SUPABASE_ANON_KEY = 'ВАШ_SUPABASE_ANON_KEY';
+// Подключение к вашему проекту в Supabase
+const SUPABASE_URL = 'https://jwzqkczrjdwybhdpjgks.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_50jNkdVDo9fSyBt788C5zw_lIv_InbV';
 
-// Инициализация клиента Supabase (скрипт библиотеки должен быть подключен в HTML)
+// Инициализация клиента Supabase
 const { createClient } = supabase;
 const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadProducts() {
     const tableBody = document.getElementById('table-body');
     
-    // Показываем сообщение о загрузке
+    // Сообщение о загрузке
     tableBody.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #888;">Загрузка данных из Supabase...</td></tr>`;
 
     try {
-        // Запрос к базе данных (сортируем по id)
+        // Запрос к базе данных (сортировка по id)
         const { data: products, error } = await _supabase
             .from('products')
             .select('*')
@@ -40,11 +40,11 @@ async function loadProducts() {
         let totalQuantity = 0;
         let totalSum = 0;
 
-        // Заполняем таблицу данными из базы
+        // Заполняем таблицу данными
         products.forEach(product => {
             const row = document.createElement('tr');
             
-            // Форматируем числа (цену и общую сумму) с разделителями и двумя знаками после точки
+            // Форматирование цен и сумм
             const priceFormatted = Number(product.price).toLocaleString('ru-RU', { minimumFractionDigits: 2 });
             const totalFormatted = Number(product.total).toLocaleString('ru-RU', { minimumFractionDigits: 2 });
 
@@ -58,12 +58,12 @@ async function loadProducts() {
             
             tableBody.appendChild(row);
 
-            // Считаем общую статистику
+            // Подсчет общей статистики
             totalQuantity += Number(product.quantity);
             totalSum += Number(product.total);
         });
 
-        // Выводим итоговые значения
+        // Вывод итогов
         updateSummary(products.length, totalQuantity, totalSum);
 
     } catch (error) {
@@ -84,8 +84,9 @@ function updateSummary(modelsCount, totalItems, summaryCost) {
     }
 }
 
-// Защита от XSS-инъекций при вводе текста
+// Защита от XSS-инъекций
 function escapeHtml(text) {
+    if (!text) return '';
     const map = {
         '&': '&amp;',
         '<': '&lt;',
@@ -93,5 +94,5 @@ function escapeHtml(text) {
         '"': '&quot;',
         "'": '&#039;'
     };
-    return text.replace(/[&<>"']/g, m => map[m]);
+    return text.toString().replace(/[&<>"']/g, m => map[m]);
 }
