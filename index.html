@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список товаров — Products Table</title>
+    <title>Каталог техники — Supabase</title>
+    <!-- Подключаем стили -->
     <link rel="stylesheet" href="style.css">
+    <!-- Подключаем библиотеку Supabase через CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
     <div class="table-container">
         <div class="table-header">
-            <h2>Каталог товаров (Products)</h2>
+            <h2>Каталог техники и компьютеров</h2>
         </div>
         <table class="styled-table">
             <thead>
@@ -22,38 +25,23 @@
                     <th class="numeric">Итого (₽)</th>
                 </tr>
             </thead>
-            <tbody>
+            <!-- Сюда JavaScript автоматически подгрузит данные из базы -->
+            <tbody id="table-body">
                 <tr>
-                    <td>1</td>
-                    <td>Ноутбук Lenovo IdeaPad 3 15</td>
-                    <td class="numeric">45 000.00</td>
-                    <td class="numeric">5</td>
-                    <td class="numeric total-cell">225 000.00</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ноутбук ASUS VivoBook 15</td>
-                    <td class="numeric">54 000.00</td>
-                    <td class="numeric">7</td>
-                    <td class="numeric total-cell">378 000.00</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Ноутбук Apple MacBook Air M2</td>
-                    <td class="numeric">115 000.00</td>
-                    <td class="numeric">2</td>
-                    <td class="numeric total-cell">230 000.00</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Ноутбук Dell Inspiron 15</td>
-                    <td class="numeric">58 000.00</td>
-                    <td class="numeric">6</td>
-                    <td class="numeric total-cell">348 000.00</td>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #888;">Загрузка данных...</td>
                 </tr>
             </tbody>
         </table>
+        
+        <!-- Блок для вывода итоговой статистики -->
+        <div id="summary-container" class="table-summary" style="padding: 16px 20px; background-color: #181818; border-top: 1px solid #2c2c2c; display: flex; justify-content: space-between; font-size: 0.9rem;">
+            <span>Моделей: <strong>0</strong></span>
+            <span>Всего штук: <strong>0</strong></span>
+            <span>Общая стоимость: <strong style="color: #3ecf8e;">0.00 ₽</strong></span>
+        </div>
     </div>
 
+    <!-- Подключаем ваш файл со скриптом -->
+    <script src="script.js"></script>
 </body>
 </html>
